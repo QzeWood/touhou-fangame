@@ -1,3 +1,5 @@
+import { SHOT_DEFINITIONS } from '../../systems/player-shots/ShotDefinitions.js';
+
 export const PLAYER_CONFIGS = {
   reimu: {
     id: 'reimu',
@@ -9,5 +11,6 @@ export const PLAYER_CONFIGS = {
     hitboxRadius: 3,
     grazeRadius: 20,
     shipRadius: 14,
+    shot: SHOT_DEFINITIONS.reimu,
   },
 };
