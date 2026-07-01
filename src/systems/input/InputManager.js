@@ -5,7 +5,7 @@ export default class InputManager {
     this.cursors = scene.input.keyboard.createCursorKeys();
     this.keys = scene.input.keyboard.addKeys({
       w: 'W', a: 'A', s: 'S', d: 'D',
-      shift: 'SHIFT', z: 'Z', x: 'X',
+      shift: 'SHIFT', shoot: 'SPACE', x: 'X',
     });
 
     this.up = false;
@@ -24,7 +24,7 @@ export default class InputManager {
     this.left = this.cursors.left.isDown || this.keys.a.isDown;
     this.right = this.cursors.right.isDown || this.keys.d.isDown;
     this.focus = this.keys.shift.isDown;
-    this.shoot = this.keys.z.isDown;
+    this.shoot = this.keys.shoot.isDown;
     this.bomb = this.keys.x.isDown;
     this.bombJustPressed = Phaser.Input.Keyboard.JustDown(this.keys.x);
   }

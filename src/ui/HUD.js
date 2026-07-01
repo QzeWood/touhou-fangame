@@ -27,7 +27,7 @@ export default class HUD {
       })
       .setDepth(101);
     scene.add
-      .text(panelX, PLAYFIELD.height - 130, '方向鍵/WASD 移動\nShift 減速判定\nZ 射擊  X 炸彈', {
+      .text(panelX, PLAYFIELD.height - 130, '方向鍵/WASD 移動\nShift 減速判定\n空格 射擊  X 炸彈', {
         fontFamily: 'monospace',
         fontSize: '13px',
         color: '#8899cc',
