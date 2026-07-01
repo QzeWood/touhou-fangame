@@ -100,10 +100,10 @@ export default class Player {
     for (const b of shot.bullets) {
       this.shotPool.fire(
         this.x + (b.offsetX || 0),
-        this.y - this.config.shipRadius,
-        0,
+        this.y - this.config.shipRadius + (b.offsetY || 0),
+        b.velocityX || 0,
         -(b.speed || shot.speed),
-        { radius: shot.radius, color: shot.color },
+        { radius: shot.radius, color: shot.color, damage: b.damage ?? shot.damage },
       );
     }
   }

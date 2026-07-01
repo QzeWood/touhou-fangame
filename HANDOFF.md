@@ -133,11 +133,14 @@ data-driven pattern engine (4 primitives), one full wave-based stage, one
 3-card spell-card boss with title banners + capture bonus, lives/bombs
 (with deathbomb buffer)/graze, item drops + collect line, score, HUD.
 
+**Added after handoff:** M7 character select is now present. The game starts
+in `CharacterSelectScene`, supports Reimu, Marisa, and Flandre, and passes
+the chosen `playerId` into `GameScene`. Player bullets can now carry
+per-bullet damage via `Bullet.fire(..., { damage })`, which keeps multi-shot
+characters from being balanced only by global shot damage. Character images,
+when added, should live under `public/assets/characters/`.
+
 **Deliberately cut for the fast demo (still open):**
-- **M7 — Character select + 2nd character.** Only Reimu exists. Add a
-  `marisa.js` (or similar) to `PlayerConfigs.js` + `ShotDefinitions.js`,
-  and a `CharacterSelectScene` before `GameScene`. `Player.js` shouldn't need
-  changes if it stays config-driven.
 - **M9 — Stages 2 and 3.** Should be almost pure content: new
   `data/stages/stageN.js` + `data/enemies/stageN_enemies.js` +
   `systems/spellcard/SpellCardDefinitions/stageN_boss.js`. If this requires

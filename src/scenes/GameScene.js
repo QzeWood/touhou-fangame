@@ -22,10 +22,15 @@ export default class GameScene extends Phaser.Scene {
     super('GameScene');
   }
 
+  init(data) {
+    this.playerId = data?.playerId || 'reimu';
+  }
+
   create() {
     this.drawPlayfieldBackground();
 
-    const config = PLAYER_CONFIGS.reimu;
+    const config = PLAYER_CONFIGS[this.playerId] || PLAYER_CONFIGS.reimu;
+    this.playerId = config.id;
     this.physics.world.setBounds(
       PLAYFIELD.x + config.shipRadius,
       PLAYFIELD.y + config.shipRadius,
@@ -89,9 +94,10 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.playerShotPool.group, this.enemyGroup, (a, b) => {
       const shot = typeof a.deactivate === 'function' ? a : b;
       const enemySprite = shot === a ? b : a;
+      const damage = shot.getData('damage') ?? this.player.config.shot.damage;
       shot.deactivate();
       const enemy = enemySprite.getData('enemyRef');
-      if (enemy) enemy.takeDamage(this.player.config.shot.damage);
+      if (enemy) enemy.takeDamage(damage);
     });
   }
 
@@ -232,7 +238,7 @@ export default class GameScene extends Phaser.Scene {
 
     if (this.gameEnded) {
       if (Phaser.Input.Keyboard.JustDown(this.restartKey)) {
-        this.scene.restart();
+        this.scene.restart({ playerId: this.playerId });
       }
       return;
     }

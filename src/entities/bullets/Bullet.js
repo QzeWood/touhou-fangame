@@ -11,13 +11,14 @@ export default class Bullet extends Phaser.GameObjects.Arc {
     this.setVisible(false);
   }
 
-  fire(x, y, vx, vy, { radius = 4, color = 0xffffff } = {}) {
+  fire(x, y, vx, vy, { radius = 4, color = 0xffffff, damage = 1 } = {}) {
     this.setRadius(radius);
     this.fillColor = color;
     this.setPosition(x, y);
     this.setActive(true);
     this.setVisible(true);
     this.setData('grazed', false);
+    this.setData('damage', damage);
     this.body.setCircle(radius);
     this.body.reset(x, y);
     this.body.setVelocity(vx, vy);
@@ -27,6 +28,7 @@ export default class Bullet extends Phaser.GameObjects.Arc {
     this.setActive(false);
     this.setVisible(false);
     this.setData('grazed', false);
+    this.setData('damage', 1);
     this.body.setVelocity(0, 0);
     this.setPosition(-1000, -1000);
   }
