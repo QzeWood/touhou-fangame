@@ -7,12 +7,19 @@ export default class Player {
     this.shotPool = shotPool;
     this.isFocused = false;
     this.lastShotAt = 0;
+    this.invincibleUntil = 0;
 
     const hbSize = config.hitboxRadius * 2;
     this.zone = scene.add.zone(x, y, hbSize, hbSize);
     scene.physics.add.existing(this.zone);
     this.zone.body.setCircle(config.hitboxRadius);
     this.zone.body.setAllowGravity(false);
+
+    const grazeSize = config.grazeRadius * 2;
+    this.grazeZone = scene.add.zone(x, y, grazeSize, grazeSize);
+    scene.physics.add.existing(this.grazeZone);
+    this.grazeZone.body.setCircle(config.grazeRadius);
+    this.grazeZone.body.setAllowGravity(false);
 
     this.visual = scene.add.graphics();
     this.visual.setDepth(DEPTH.PLAYER);
@@ -50,6 +57,15 @@ export default class Player {
   syncVisualPosition() {
     this.visual.setPosition(this.zone.x, this.zone.y);
     this.hitboxDot.setPosition(this.zone.x, this.zone.y);
+    this.grazeZone.body.reset(this.zone.x, this.zone.y);
+  }
+
+  isInvincible(time) {
+    return time < this.invincibleUntil;
+  }
+
+  setInvincibleUntil(time) {
+    this.invincibleUntil = time;
   }
 
   update(input, time) {
@@ -72,6 +88,8 @@ export default class Player {
     if (input.shoot && time - this.lastShotAt >= this.config.shot.cooldownMs) {
       this.fire(time);
     }
+
+    this.visual.setAlpha(this.isInvincible(time) ? (Math.floor(time / 80) % 2 === 0 ? 0.35 : 1) : 1);
 
     this.syncVisualPosition();
   }

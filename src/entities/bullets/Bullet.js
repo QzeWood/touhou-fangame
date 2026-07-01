@@ -17,6 +17,7 @@ export default class Bullet extends Phaser.GameObjects.Arc {
     this.setPosition(x, y);
     this.setActive(true);
     this.setVisible(true);
+    this.setData('grazed', false);
     this.body.setCircle(radius);
     this.body.reset(x, y);
     this.body.setVelocity(vx, vy);
@@ -25,6 +26,7 @@ export default class Bullet extends Phaser.GameObjects.Arc {
   deactivate() {
     this.setActive(false);
     this.setVisible(false);
+    this.setData('grazed', false);
     this.body.setVelocity(0, 0);
     this.setPosition(-1000, -1000);
   }
